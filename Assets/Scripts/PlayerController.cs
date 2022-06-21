@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     public List<Transform> segments;
     public Transform segmentPrefab;
+
+    public GameObject gameOverText;
 
     // Start is called before the first frame update
     void Start()
@@ -73,7 +77,8 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Bound" || collision.gameObject.tag == "SnakeSegment")
         {
-            Debug.Log("Game Over!");
+            Time.timeScale = 0;
+            gameOverText.SetActive(true);
         }
     }
 
