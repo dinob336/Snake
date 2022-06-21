@@ -18,16 +18,8 @@ public class PlayerController : MonoBehaviour
         segments = new List<Transform>();
         segments.Add(transform);
 
-        
         direction = Vector3.forward;
-        // StartCoroutine(Move());
-
-        
-
-        
-        
-
-    }
+     }
     private void Update()
     {
         Movement();
@@ -44,7 +36,6 @@ public class PlayerController : MonoBehaviour
             Mathf.Round(transform.position.x) + direction.x,
                 0,
             Mathf.Round(transform.position.z + direction.z)
-
             );
         
     }
@@ -56,7 +47,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow)) { direction = Vector3.back; }
         if (Input.GetKeyDown(KeyCode.LeftArrow)) { direction = Vector3.left; }
         if (Input.GetKeyDown(KeyCode.RightArrow)) { direction = Vector3.right; }
-
     }
     
     
@@ -67,7 +57,6 @@ public class PlayerController : MonoBehaviour
         segment.position = segments[segments.Count - 1].position;
 
         segments.Add(segment);
-        
     }
 
 
@@ -76,9 +65,16 @@ public class PlayerController : MonoBehaviour
     {
         Destroy(other.gameObject);
         IncreaseSize();
-        //Time.fixedDeltaTime -= 0.1f;
-        
+        Time.fixedDeltaTime -= 0.005f;
+        Debug.Log(Time.fixedDeltaTime);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Bound" || collision.gameObject.tag == "SnakeSegment")
+        {
+            Debug.Log("Game Over!");
+        }
+    }
 
 }
